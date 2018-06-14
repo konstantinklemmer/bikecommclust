@@ -11,7 +11,7 @@ rm(pkg,pkgs)
 
 
 ## Set wd
-setwd("C:/Users/Konstantin Klemmer/AppData/Local/Packages/CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc/LocalState/rootfs/home/Konstantin/infomap/output_fernando")
+#setwd("~/YOUR_WD") #Set working directory if needed
 
 
 ## Preparing output data
