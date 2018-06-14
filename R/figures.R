@@ -15,24 +15,24 @@ rm(pkg,pkgs)
 
 
 ## Preparing output data
-imapResults <- read.table("https://github.com/dixonary/bikecommclust/data/edges.tree",header=F,sep=" ") #Read output tree file 
+imapResults <- read.table("https://raw.githubusercontent.com/konstantinklemmer/bikecommclust/master/data/edges.tree",header=F,sep=" ") #Read output tree file 
 imapResults <- cbind(imapResults,str_split_fixed(imapResults$V1,":",2)) #Split cluster and index column
 imapResults <- imapResults[ -c(1)] #Delete redundant column
 colnames(imapResults) <- c("flow","name1","ID","cluster","clusterID") #Name columns
-results <- fread("https://github.com/dixonary/bikecommclust/data/results.csv",header=TRUE) #Read output of time interval analysis
+results <- fread("https://raw.githubusercontent.com/konstantinklemmer/bikecommclust/master/data/results.csv",header=TRUE) #Read output of time interval analysis
 imapResults <- merge(imapResults,results,by="ID")
 imapResults <- imapResults[-c(6)]
 
 
 ## Preparing station data
-stations <- fread("https://github.com/dixonary/bikecommclust/data/stations.csv",header=TRUE) #Read stations data
-stationID <- fread("https://github.com/dixonary/bikecommclust/data/stationID.csv",header=TRUE) #Read stations ID 
+stations <- fread("https://raw.githubusercontent.com/konstantinklemmer/bikecommclust/master/data/stations.csv",header=TRUE) #Read stations data
+stationID <- fread("https://raw.githubusercontent.com/konstantinklemmer/bikecommclust/master/data/stationID.csv",header=TRUE) #Read stations ID 
 imapResults <- merge(imapResults,stationID,by.x="ID",by.y="id2",all.x=T) #Merge with community analysis results according to ordering
 data <- merge(imapResults,stations,by.x="id1",by.y="id",all.x=TRUE) #Merge final infomap results dataset
 
 
 ## Preparing output data from other community detection methods
-communities <- fread("https://github.com/dixonary/bikecommclust/data/communities.csv",header=TRUE)
+communities <- fread("https://raw.githubusercontent.com/konstantinklemmer/bikecommclust/master/data/communities.csv",header=TRUE)
 communities$id <- as.numeric(communities$id)
 data2 <- merge(data,communities,by.x="id1",by.y="id",all.x=TRUE) #Merge full dataset including infomap and other algorithms
 
@@ -71,12 +71,12 @@ p4 <- ggplot(data2, aes(long,lat)) + #Plot Greedy results
   theme_bw()
 
 p_comp <- arrangeGrob(p1,p2,p3,p4, nrow=2)  #Arrange plots together
-ggsave(file="comp.pdf", p_comp,width = 10.74, height = 6.1)
+#ggsave(file="comp.pdf", p_comp,width = 10.74, height = 6.1)
 
 
 ## Figure 3.  Interactions and volume of London BSS communities: clusters are mapped at their geographic centroids. 
 
-trips <- fread("https://github.com/dixonary/bikecommclust/data/trips.csv",header=TRUE) #Load all observed trips
+trips <- fread("https://raw.githubusercontent.com/konstantinklemmer/bikecommclust/master/data/trips.csv",header=TRUE) #Load all observed trips
 comm_start <- as.data.frame(cbind(data2$id1,data2$total)) #Create community datasets for left_join
 colnames(comm_start) <- c("id","StartCluster")
 comm_start$id <- as.integer(as.character(comm_start$id))
