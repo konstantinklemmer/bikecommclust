@@ -75,8 +75,11 @@ p_comp <- arrangeGrob(p1,p2,p3,p4, nrow=2)  #Arrange plots together
 
 
 ## Figure 3.  Interactions and volume of London BSS communities: clusters are mapped at their geographic centroids. 
-
-trips <- fread("https://raw.githubusercontent.com/konstantinklemmer/bikecommclust/master/data/trips.csv",header=TRUE) #Load all observed trips
+temp <- tempfile()
+download.file("https://raw.githubusercontent.com/konstantinklemmer/bikecommclust/master/data/trips.zip","temp.zip") #Download compressed trip data (35MB)
+unzip("temp.zip","trips.csv")
+trips <- fread("trips.csv",header=TRUE) #Load all observed trips into R
+unlink(temp)
 comm_start <- as.data.frame(cbind(data2$id1,data2$total)) #Create community datasets for left_join
 colnames(comm_start) <- c("id","StartCluster")
 comm_start$id <- as.integer(as.character(comm_start$id))
