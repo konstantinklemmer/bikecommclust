@@ -9,54 +9,41 @@ library("lubridate") # contains functions related to dates
 library('NbClust') #contains function to select optimum number of clusters
 library(stringr)
 
-#Data base loading
-setwd("~/Dropbox/Transport MSc/Dissertation/Rstudio") #set the proper directory here
-#June-Jul 2014
-df <- rbind(read.csv('20Jul14-31Jul14.csv'),read.csv('22Jun14-19Jul14.csv'))
+# Data base loading
+setwd("~/Dropbox/Transport MSc/Dissertation/Rstudio") #set the directory to tfl santander data here
+# June-Jul 2014
+df <- rbind(read.csv('20Jul14-31Jul14.csv'),read.csv('22Jun14-19Jul14.csv')) #June-July data
 
+# removing NAs
 df$Bike.Id[is.na(df$Bike.Id)] <- 0
 df$EndStation.Id[is.na(df$EndStation.Id)] <- 0
 
-#Better function
+# Reading date
 df$Start.Date <- strptime(df$Start.Date, "%d/%m/%Y %H:%M")
 df$End.Date <- strptime(df$End.Date, "%d/%m/%Y %H:%M")
 
 
-#order the data by date
+# order the data by date
 df <- df[order(df$Start.Date),]
 
 
-#remove end.id == 0 and Bike.ID == 0 i.e. the stations we could not fix.
+# remove end.id == 0 and Bike.ID == 0
 df <- df[!df$EndStation.Id==0,]
 df <- df[!df$Bike.Id==0,]
 
-#maintenance station detection
+# maintenance station detection and removal
 nostart <- setdiff(unique(df$EndStation.Id),unique(df$StartStation.Id))
 
-#Removal them from the data set
+# removal them from the data set (a match function should be more efficient for bigger data sets)
 for (i in 1:NROW(nostart)){
   
   df <- df[!df$EndStation.Id==nostart[i],]
 }
 
-#Removing weekends - OPTIONAL
+
 df <- df[!is.weekend(df$Start.Date),] #we remove the weekends
 
-#For weekdays
-
-range <- range(df$Start.Date)
-range
-weekdays.df <- 25 #manually CHANGE depending on your range!!!
-
-membership_h <- matrix(0,750,1)
-membership_h <- data.frame(membership_h)
-membership_h$id <- as.character(unique(df$StartStation.Id))
-membership_h$membership_h <- NULL
-
-#Now the community analysis can start.
-library(igraph)
-
-set.seed(142)
+# Community detection algorithm
 
 setwd("/Users/Fer/Downloads/Infomap") # Folder with the infomap executable
 
@@ -80,6 +67,8 @@ for (h in 0:23){
   system(command = infomapcommand)
 
 }
+
+# Summarising the results
 
 setwd("~/Downloads/Infomap/outputH")
 
