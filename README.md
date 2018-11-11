@@ -25,11 +25,19 @@ Where the `edges.txt` file is either the aggregated OD-matrix `/data/edges.txt` 
 ## Citation
 
 ```
-@misc{munozmendez2018,
-	Author = {Fernando Munoz-Mendez and Konstantin Klemmer and Ke Han and Stephen Jarvis},
-	Title = {Community structures, interactions and dynamics in London's bicycle sharing network},
-	Year = {2018},
-	Eprint = {arXiv:1804.05584},
+@inproceedings{Munoz-Mendez2018,
+	address = {New York, New York, USA},
+	author = {Munoz-Mendez, Fernando and Klemmer, Konstantin  and Han, Ke and Jarvis, Stephen},
+	booktitle = {Proceedings of the 2018 ACM International Joint Conference and 2018 International Symposium on Pervasive and Ubiquitous Computing and Wearable Computers - UbiComp '18},
+	doi = {10.1145/3267305.3274156},
+	file = {::},
+	isbn = {9781450359665},
+	keywords = {Bikesharing,clustering,community detection,spatio-temporal analysis,urban mobility},
+	pages = {1015--1023},
+	publisher = {ACM Press},
+	title = {{Community Structures, Interactions and Dynamics in London's Bicycle Sharing Network}},
+	url = {http://dl.acm.org/citation.cfm?doid=3267305.3274156},
+	year = {2018}
 }
 ```
 
