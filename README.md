@@ -1,4 +1,4 @@
-# "Community structures, interactions and dynamics in London's bicycle sharing network" - complementary code
+# LondonBike Dataset - complementary code for "Community structures, interactions and dynamics in London's bicycle sharing network" 
 
 ![](https://konstantinklemmer.github.io/images/research/06.png)
 
